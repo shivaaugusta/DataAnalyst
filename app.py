@@ -1,1 +1,331 @@
-
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOUMCa0UdKQ+52hwco4oH5u",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/shivaaugusta/DataAnalyst/blob/main/Data_Biaya.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 1. Install library (kalau belum ada)\n",
+        "!pip install pandas openpyxl"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "V68DBkEBhwyU",
+        "outputId": "871d256a-5d17-4c46-a261-1fc96330c62c"
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: pandas in /usr/local/lib/python3.11/dist-packages (2.2.2)\n",
+            "Requirement already satisfied: openpyxl in /usr/local/lib/python3.11/dist-packages (3.1.5)\n",
+            "Requirement already satisfied: numpy>=1.23.2 in /usr/local/lib/python3.11/dist-packages (from pandas) (2.0.2)\n",
+            "Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.11/dist-packages (from pandas) (2.9.0.post0)\n",
+            "Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.11/dist-packages (from pandas) (2025.2)\n",
+            "Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.11/dist-packages (from pandas) (2025.2)\n",
+            "Requirement already satisfied: et-xmlfile in /usr/local/lib/python3.11/dist-packages (from openpyxl) (2.0.0)\n",
+            "Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.11/dist-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 2. Import library\n",
+        "import pandas as pd"
+      ],
+      "metadata": {
+        "id": "_wdXdFj0h1Il"
+      },
+      "execution_count": 2,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 3. Load dataset (.xlsx)\n",
+        "file_path = '/content/dataset_bersih.xlsx'\n",
+        "df = pd.read_excel(file_path)"
+      ],
+      "metadata": {
+        "id": "G0ZwOp3Nh28a"
+      },
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 4. (Optional) lihat nama kolom\n",
+        "print(df.columns)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "xj6XTusEh9tm",
+        "outputId": "d8382323-5735-47cd-ffa1-b8b0b4de7d51"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Index(['No_Urut', 'Golongan_Penyusutan', 'Nomor_Rekening',\n",
+            "       'Jenis_Aktiva_Tetap', 'Nomor_Aktiva_Tetap', 'Tahun_Perolehan',\n",
+            "       'Masa_Manfaat_Tahun', 'Tarif_Penyusutan', 'Nilai_Perolehan',\n",
+            "       'Nilai_Buku_Bulan_Lalu', 'Penyusutan_Bulan_Lalu',\n",
+            "       'Biaya_Penyusutan_Bulan', 'Biaya_Penyusutan_Sampai_Bulan',\n",
+            "       'Akumulasi_Penyusutan', 'Nilai_Buku_Bulan_Ini',\n",
+            "       'Nomor_Rekening_Penyusutan', 'Rasio_Penyusutan'],\n",
+            "      dtype='object')\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "pip install streamlit"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Ae84CjOdiO_-",
+        "outputId": "e8f2d341-ce21-4b2f-911a-1b7d29857fbf"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Collecting streamlit\n",
+            "  Downloading streamlit-1.48.1-py3-none-any.whl.metadata (9.5 kB)\n",
+            "Requirement already satisfied: altair!=5.4.0,!=5.4.1,<6,>=4.0 in /usr/local/lib/python3.11/dist-packages (from streamlit) (5.5.0)\n",
+            "Requirement already satisfied: blinker<2,>=1.5.0 in /usr/local/lib/python3.11/dist-packages (from streamlit) (1.9.0)\n",
+            "Requirement already satisfied: cachetools<7,>=4.0 in /usr/local/lib/python3.11/dist-packages (from streamlit) (5.5.2)\n",
+            "Requirement already satisfied: click<9,>=7.0 in /usr/local/lib/python3.11/dist-packages (from streamlit) (8.2.1)\n",
+            "Requirement already satisfied: numpy<3,>=1.23 in /usr/local/lib/python3.11/dist-packages (from streamlit) (2.0.2)\n",
+            "Requirement already satisfied: packaging<26,>=20 in /usr/local/lib/python3.11/dist-packages (from streamlit) (25.0)\n",
+            "Requirement already satisfied: pandas<3,>=1.4.0 in /usr/local/lib/python3.11/dist-packages (from streamlit) (2.2.2)\n",
+            "Requirement already satisfied: pillow<12,>=7.1.0 in /usr/local/lib/python3.11/dist-packages (from streamlit) (11.3.0)\n",
+            "Requirement already satisfied: protobuf<7,>=3.20 in /usr/local/lib/python3.11/dist-packages (from streamlit) (5.29.5)\n",
+            "Requirement already satisfied: pyarrow>=7.0 in /usr/local/lib/python3.11/dist-packages (from streamlit) (18.1.0)\n",
+            "Requirement already satisfied: requests<3,>=2.27 in /usr/local/lib/python3.11/dist-packages (from streamlit) (2.32.3)\n",
+            "Requirement already satisfied: tenacity<10,>=8.1.0 in /usr/local/lib/python3.11/dist-packages (from streamlit) (9.1.2)\n",
+            "Requirement already satisfied: toml<2,>=0.10.1 in /usr/local/lib/python3.11/dist-packages (from streamlit) (0.10.2)\n",
+            "Requirement already satisfied: typing-extensions<5,>=4.4.0 in /usr/local/lib/python3.11/dist-packages (from streamlit) (4.14.1)\n",
+            "Collecting watchdog<7,>=2.1.5 (from streamlit)\n",
+            "  Downloading watchdog-6.0.0-py3-none-manylinux2014_x86_64.whl.metadata (44 kB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m44.3/44.3 kB\u001b[0m \u001b[31m3.5 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hRequirement already satisfied: gitpython!=3.1.19,<4,>=3.0.7 in /usr/local/lib/python3.11/dist-packages (from streamlit) (3.1.45)\n",
+            "Collecting pydeck<1,>=0.8.0b4 (from streamlit)\n",
+            "  Downloading pydeck-0.9.1-py2.py3-none-any.whl.metadata (4.1 kB)\n",
+            "Requirement already satisfied: tornado!=6.5.0,<7,>=6.0.3 in /usr/local/lib/python3.11/dist-packages (from streamlit) (6.4.2)\n",
+            "Requirement already satisfied: jinja2 in /usr/local/lib/python3.11/dist-packages (from altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit) (3.1.6)\n",
+            "Requirement already satisfied: jsonschema>=3.0 in /usr/local/lib/python3.11/dist-packages (from altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit) (4.25.0)\n",
+            "Requirement already satisfied: narwhals>=1.14.2 in /usr/local/lib/python3.11/dist-packages (from altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit) (2.1.1)\n",
+            "Requirement already satisfied: gitdb<5,>=4.0.1 in /usr/local/lib/python3.11/dist-packages (from gitpython!=3.1.19,<4,>=3.0.7->streamlit) (4.0.12)\n",
+            "Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.11/dist-packages (from pandas<3,>=1.4.0->streamlit) (2.9.0.post0)\n",
+            "Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.11/dist-packages (from pandas<3,>=1.4.0->streamlit) (2025.2)\n",
+            "Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.11/dist-packages (from pandas<3,>=1.4.0->streamlit) (2025.2)\n",
+            "Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib/python3.11/dist-packages (from requests<3,>=2.27->streamlit) (3.4.3)\n",
+            "Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.11/dist-packages (from requests<3,>=2.27->streamlit) (3.10)\n",
+            "Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.11/dist-packages (from requests<3,>=2.27->streamlit) (2.5.0)\n",
+            "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.11/dist-packages (from requests<3,>=2.27->streamlit) (2025.8.3)\n",
+            "Requirement already satisfied: smmap<6,>=3.0.1 in /usr/local/lib/python3.11/dist-packages (from gitdb<5,>=4.0.1->gitpython!=3.1.19,<4,>=3.0.7->streamlit) (5.0.2)\n",
+            "Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.11/dist-packages (from jinja2->altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit) (3.0.2)\n",
+            "Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.11/dist-packages (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit) (25.3.0)\n",
+            "Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.11/dist-packages (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit) (2025.4.1)\n",
+            "Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.11/dist-packages (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit) (0.36.2)\n",
+            "Requirement already satisfied: rpds-py>=0.7.1 in /usr/local/lib/python3.11/dist-packages (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit) (0.27.0)\n",
+            "Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.11/dist-packages (from python-dateutil>=2.8.2->pandas<3,>=1.4.0->streamlit) (1.17.0)\n",
+            "Downloading streamlit-1.48.1-py3-none-any.whl (9.9 MB)\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m9.9/9.9 MB\u001b[0m \u001b[31m102.8 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hDownloading pydeck-0.9.1-py2.py3-none-any.whl (6.9 MB)\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m6.9/6.9 MB\u001b[0m \u001b[31m103.5 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hDownloading watchdog-6.0.0-py3-none-manylinux2014_x86_64.whl (79 kB)\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m79.1/79.1 kB\u001b[0m \u001b[31m7.9 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hInstalling collected packages: watchdog, pydeck, streamlit\n",
+            "Successfully installed pydeck-0.9.1 streamlit-1.48.1 watchdog-6.0.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 7,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "2Lmc0uxpdwAj",
+        "outputId": "6064f50a-f9ad-426c-ccaf-f850e6c8838e"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "2025-08-19 08:54:13.661 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2025-08-19 08:54:13.662 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2025-08-19 08:54:13.848 \n",
+            "  \u001b[33m\u001b[1mWarning:\u001b[0m to view this Streamlit app on a browser, run it with the following\n",
+            "  command:\n",
+            "\n",
+            "    streamlit run /usr/local/lib/python3.11/dist-packages/colab_kernel_launcher.py [ARGUMENTS]\n",
+            "2025-08-19 08:54:13.849 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2025-08-19 08:54:13.850 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2025-08-19 08:54:13.850 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2025-08-19 08:54:13.851 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2025-08-19 08:54:13.852 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2025-08-19 08:54:13.853 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2025-08-19 08:54:13.854 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2025-08-19 08:54:13.855 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n"
+          ]
+        }
+      ],
+      "source": [
+        "import streamlit as st\n",
+        "import pandas as pd\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "st.set_page_config(page_title=\"Analisis Penyusutan Aset\", layout=\"wide\")\n",
+        "\n",
+        "st.title(\"📊 Dashboard Analisis Biaya Penyusutan Aset\")\n",
+        "\n",
+        "# 1️⃣ Upload file\n",
+        "uploaded = st.file_uploader(\"dataset_bersih.xlsx\", type=[\"xlsx\"])\n",
+        "\n",
+        "if uploaded:\n",
+        "    df = pd.read_excel(uploaded)\n",
+        "\n",
+        "    # ---- 2. Clean Data ----\n",
+        "    # drop baris yang mengandung Subtotal / Total (di kolom object mana pun)\n",
+        "    obj_cols = df.select_dtypes(include='object').columns\n",
+        "    mask = df[obj_cols].apply(lambda x: x.str.contains('Subtotal|Total', case=False, na=False)).any(axis=1)\n",
+        "    df = df[~mask]\n",
+        "\n",
+        "    # drop baris kosong\n",
+        "    df = df.dropna(how='all')\n",
+        "\n",
+        "    # konversi Tahun_Perolehan\n",
+        "    if pd.api.types.is_datetime64_any_dtype(df['Tahun_Perolehan']):\n",
+        "        df['Tahun_Perolehan'] = df['Tahun_Perolehan'].dt.year\n",
+        "\n",
+        "    # isi NaN\n",
+        "    df[obj_cols] = df[obj_cols].fillna('-')\n",
+        "    num_cols = df.select_dtypes(include=['float64','int64']).columns\n",
+        "    df[num_cols] = df[num_cols].fillna(0)\n",
+        "    df.reset_index(drop=True, inplace=True)\n",
+        "\n",
+        "    st.subheader(\"Preview Dataset\")\n",
+        "    st.dataframe(df.head())\n",
+        "\n",
+        "    # ---- 3. Dashboard Ringkasan ----\n",
+        "    st.subheader(\"📌 Ringkasan Total\")\n",
+        "    col1,col2,col3 = st.columns(3)\n",
+        "    col1.metric(\"Total Nilai Perolehan\", f\"{df['Nilai_Perolehan'].sum():,.0f} Rp\")\n",
+        "    col2.metric(\"Total Biaya Penyusutan Bulan\", f\"{df['Biaya_Penyusutan_Bulan'].sum():,.0f} Rp\")\n",
+        "    col3.metric(\"Total Akumulasi Penyusutan\", f\"{df['Akumulasi_Penyusutan'].sum():,.0f} Rp\")\n",
+        "\n",
+        "    # ---- 4. Top 10 Jenis Aktiva ----\n",
+        "    st.subheader(\"Top 10 Jenis Aktiva Penyumbang Biaya Penyusutan (Bulan)\")\n",
+        "    biaya_per_jenis = (\n",
+        "        df.groupby('Jenis_Aktiva_Tetap')['Biaya_Penyusutan_Bulan']\n",
+        "        .sum()\n",
+        "        .sort_values(ascending=False)\n",
+        "    )\n",
+        "    top10_jenis = biaya_per_jenis.head(10)\n",
+        "    max_val = top10_jenis.max()\n",
+        "    divisor = 1e9 if max_val>=1e9 else 1e6\n",
+        "    satuan = \"Miliar\" if divisor==1e9 else \"Juta\"\n",
+        "    top10_jenis_scaled = top10_jenis / divisor\n",
+        "\n",
+        "    fig1, ax1 = plt.subplots()\n",
+        "    top10_jenis_scaled.plot(kind='bar', ax=ax1)\n",
+        "    ax1.set_ylabel(f'Total Biaya Penyusutan ({satuan} Rp)')\n",
+        "    ax1.set_xlabel(\"Jenis Aktiva\")\n",
+        "    plt.xticks(rotation=45, ha='right')\n",
+        "    st.pyplot(fig1)\n",
+        "\n",
+        "    # ---- 5. Top 10 Golongan Penyusutan ----\n",
+        "    st.subheader(\"Top 10 Golongan Penyusutan berdasarkan Biaya Penyusutan\")\n",
+        "    biaya_per_gol = df.groupby('Golongan_Penyusutan')['Biaya_Penyusutan_Bulan'].sum().sort_values(ascending=False)\n",
+        "    top10_gol = biaya_per_gol.head(10) / divisor\n",
+        "\n",
+        "    fig2, ax2 = plt.subplots()\n",
+        "    top10_gol.plot(kind='bar', ax=ax2)\n",
+        "    ax2.set_ylabel(f'Total Biaya Penyusutan ({satuan} Rp)')\n",
+        "    ax2.set_xlabel(\"Golongan Penyusutan\")\n",
+        "    plt.xticks(rotation=45, ha='right')\n",
+        "    st.pyplot(fig2)\n",
+        "\n",
+        "    # ---- 6. Histogram Rasio Penyusutan ----\n",
+        "    st.subheader(\"Distribusi Rasio Penyusutan (Biaya Penyusutan / Nilai Buku)\")\n",
+        "    # hitung kolom rasio (jika belum ada)\n",
+        "    if 'Rasio_Penyusutan' not in df.columns:\n",
+        "        df['Rasio_Penyusutan'] = df['Biaya_Penyusutan_Sampai_Bulan'] / df['Nilai_Buku_Bulan_Ini']\n",
+        "    rasio_positive = df[df['Rasio_Penyusutan'] > 0]['Rasio_Penyusutan']\n",
+        "    filtered_rasio = rasio_positive[rasio_positive < 20]\n",
+        "\n",
+        "    fig3, ax3 = plt.subplots()\n",
+        "    ax3.hist(filtered_rasio, bins=30)\n",
+        "    ax3.set_xlabel(\"Rasio Penyusutan (<20)\")\n",
+        "    ax3.set_ylabel(\"Jumlah Aset\")\n",
+        "    st.pyplot(fig3)\n",
+        "\n",
+        "    # ---- 7. Top Aset (Nilai Perolehan dan Nilai Buku) ----\n",
+        "    st.subheader(\"Top 10 Aset Berdasarkan Nilai Perolehan\")\n",
+        "    top10_perol = df.sort_values('Nilai_Perolehan', ascending=False).head(10)\n",
+        "    st.table(top10_perol[['Jenis_Aktiva_Tetap','Nilai_Perolehan']])\n",
+        "\n",
+        "    st.subheader(\"Top 10 Aset Berdasarkan Nilai Buku Bulan Ini\")\n",
+        "    top10_book = df.sort_values('Nilai_Buku_Bulan_Ini', ascending=False).head(10)\n",
+        "    st.table(top10_book[['Jenis_Aktiva_Tetap','Nilai_Buku_Bulan_Ini']])\n",
+        "\n",
+        "    # ---- 8. Pencarian Keyword (contoh kata \"meja\") ----\n",
+        "    st.subheader(\"🔎 Cari Aset berdasarkan Kata Kunci\")\n",
+        "    keyword = st.text_input(\"Masukkan kata kunci (misal: meja, printer, ac, dll)\", \"\")\n",
+        "    if keyword:\n",
+        "        mask = df['Jenis_Aktiva_Tetap'].str.contains(keyword, case=False, na=False)\n",
+        "        filtered = df[mask]\n",
+        "        st.write(f\"Jumlah aset yang mengandung '{keyword}':  {len(filtered)}\")\n",
+        "        st.write(f\"Total nilai perolehan aset tersebut:  {filtered['Nilai_Perolehan'].sum():,.0f} Rp\")\n",
+        "        st.dataframe(filtered[['Jenis_Aktiva_Tetap','Nilai_Perolehan','Biaya_Penyusutan_Bulan']])\n"
+      ]
+    }
+  ]
+}
